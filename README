@@ -1,0 +1,5 @@
+mvn clean install
+
+hdfs dfs -mkdir /user/mwos
+
+./run-all.sh
