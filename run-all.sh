@@ -12,8 +12,11 @@ hdfs dfs -rm -r -f /user/mwos/result-*
 echo "UNION: "
 #hdfs dfs -cat /user/mwos/result-union/part*
 
-hadoop jar target/map-reduce-1.0-SNAPSHOT.jar Intersection /user/mwos/sample-input /user/mwos/result-intersection/
-#hadoop jar target/map-reduce-1.0-SNAPSHOT.jar WordCount2 /user/mwos/sample-input /user/mwos/result-intersection/
+#hadoop jar target/map-reduce-1.0-SNAPSHOT.jar Intersection /user/mwos/sample-input /user/mwos/result-intersection/
 echo "INTERSECTION: "
-hdfs dfs -cat /user/mwos/result-intersection/part*
+#hdfs dfs -cat /user/mwos/result-intersection/part*
+
+hadoop jar target/map-reduce-1.0-SNAPSHOT.jar Difference /user/mwos/sample-input /user/mwos/result-difference/
+echo "DIFFERENCE: "
+hdfs dfs -cat /user/mwos/result-difference/part*
 

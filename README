@@ -1,4 +1,5 @@
 Przyjęte założenia:
 
 1. Union, Intersection, Diff:
-W ścieżce z plikami wejściowymi znajdują sie dokładnie 2 pliki, każdy z nich reprezentuje 1 zbiór.
+W ścieżce z plikami wejściowymi znajdują sie dokładnie 2 pliki A i B, każdy z nich reprezentuje 1 zbiór.
+W szczególności Diff licz A \ B (nazwa pliku istotna).
