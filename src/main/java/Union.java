@@ -14,35 +14,21 @@ import java.util.StringTokenizer;
 
 public class Union {
 
+	private static Text emptyWord = new Text("");
 	public static class UnionMapper
 			extends Mapper<Object, Text, Text, Text> {
 
-		private Text word = new Text();
-
 		public void map(Object key, Text value, Context context
 		) throws IOException, InterruptedException {
-			System.out.println(value);
-			context.write(value, value);
-		}
-	}
-
-	public static class UnionCombiner
-			extends Reducer<Text, Iterable<Text>, Text, Iterable<Text>> {
-
-		public void reduce(Text key, Iterable<Text> values,
-						   Context context
-		) throws IOException, InterruptedException {
-				List<Text> result = new ArrayList<Text>();
-				result.add(key);
-				context.write(key, result);
+			context.write(value, emptyWord);
 		}
 	}
 
 	// can't use as combiner because input != output
 	public static class UnionReducer
-			extends Reducer<Text, Iterable<Text>, Text, Text> {
+			extends Reducer<Text, Text, Text, Text> {
 
-		public void reduce(Text key, Iterable<Text> values,
+		public void reduce(Text key, Iterable<Text> _values,
 						   Context context
 		) throws IOException, InterruptedException {
 				context.write(key, key);
@@ -55,7 +41,7 @@ public class Union {
 		Job job = Job.getInstance(conf, "Word sum");
 		job.setJarByClass(Union.class);
 		job.setMapperClass(UnionMapper.class);
-		//job.setCombinerClass(SumCombiner.class);
+		job.setCombinerClass(UnionReducer.class);
 		job.setReducerClass(UnionReducer.class);
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(Text.class);
