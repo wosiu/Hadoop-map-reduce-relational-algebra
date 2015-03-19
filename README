@@ -1,5 +1,4 @@
-mvn clean install
+Przyjęte założenia:
 
-hdfs dfs -mkdir /user/mwos
-
-./run-all.sh
+1. Union, Intersection, Diff:
+W ścieżce z plikami wejściowymi znajdują sie dokładnie 2 pliki, każdy z nich reprezentuje 1 zbiór.

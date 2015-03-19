@@ -8,9 +8,6 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
 
 public class Union {
 
@@ -24,7 +21,6 @@ public class Union {
 		}
 	}
 
-	// can't use as combiner because input != output
 	public static class UnionReducer
 			extends Reducer<Text, Text, Text, Text> {
 
