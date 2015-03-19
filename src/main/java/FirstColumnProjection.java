@@ -1,5 +1,6 @@
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
@@ -7,19 +8,21 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import java.io.IOException;
 
-public class Union {
+public class FirstColumnProjection {
 
 	private static Text emptyWord = new Text("");
-	public static class Mapper
-			extends org.apache.hadoop.mapreduce.Mapper<Object, Text, Text, Text> {
+	public static class MyMapper
+			extends org.apache.hadoop.mapreduce.Mapper<Object, Text, Text, Text>{
 
 		public void map(Object key, Text value, Context context
 		) throws IOException, InterruptedException {
-			context.write(value, emptyWord);
+			String values[] = value.toString().split(" ");
+			String first = values[0];
+					context.write(new Text(first), emptyWord);
 		}
 	}
 
-	public static class Reducer
+	public static class MyReducer
 			extends org.apache.hadoop.mapreduce.Reducer<Text, Text, Text, Text> {
 
 		public void reduce(Text key, Iterable<Text> _values,
@@ -33,10 +36,10 @@ public class Union {
 		Configuration conf = new Configuration();
 
 		Job job = Job.getInstance(conf, "Word sum");
-		job.setJarByClass(Union.class);
-		job.setMapperClass(Mapper.class);
-		job.setCombinerClass(Reducer.class);
-		job.setReducerClass(Reducer.class);
+		job.setJarByClass(FirstColumnProjection.class);
+		job.setMapperClass(MyMapper.class);
+		job.setCombinerClass(MyReducer.class);
+		job.setReducerClass(MyReducer.class);
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(Text.class);
 

@@ -9,8 +9,8 @@ import java.io.IOException;
 
 public class Difference {
 
-	public static class Mapper
-			extends org.apache.hadoop.mapreduce.Mapper {
+	public static class MyMapper
+			extends org.apache.hadoop.mapreduce.Mapper<Object, Text, Text, Text> {
 
 		public void map(Object key, Text value, Context context
 		) throws IOException, InterruptedException {
@@ -19,8 +19,8 @@ public class Difference {
 		}
 	}
 
-	public static class Reducer
-			extends org.apache.hadoop.mapreduce.Reducer {
+	public static class MyReducer
+			extends org.apache.hadoop.mapreduce.Reducer<Text, Text, Text, Text> {
 
 		public void reduce(Text key, Iterable<Text> values,
 						   Context context
@@ -42,8 +42,8 @@ public class Difference {
 
 		Job job = Job.getInstance(conf, "Word sum");
 		job.setJarByClass(Difference.class);
-		job.setMapperClass(Mapper.class);
-		job.setReducerClass(Reducer.class);
+		job.setMapperClass(MyMapper.class);
+		job.setReducerClass(MyReducer.class);
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(Text.class);
 

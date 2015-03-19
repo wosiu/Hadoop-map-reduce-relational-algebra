@@ -11,7 +11,7 @@ import java.io.IOException;
 public class Intersection {
 
 	public static class Mapper
-			extends org.apache.hadoop.mapreduce.Mapper {
+			extends org.apache.hadoop.mapreduce.Mapper<Object, Text, Text, IntWritable> {
 
 		private final static IntWritable one = new IntWritable(1);
 		private Text word = new Text();
@@ -23,7 +23,7 @@ public class Intersection {
 	}
 
 	public static class Combiner
-			extends org.apache.hadoop.mapreduce.Reducer {
+			extends org.apache.hadoop.mapreduce.Reducer<Text, IntWritable, Text, IntWritable> {
 		private IntWritable result = new IntWritable();
 
 		public void reduce(Text key, Iterable<IntWritable> values,
@@ -39,7 +39,7 @@ public class Intersection {
 	}
 
 	public static class Reducer
-			extends org.apache.hadoop.mapreduce.Reducer {
+			extends org.apache.hadoop.mapreduce.Reducer<Text, IntWritable, Text, Text> {
 
 		public void reduce(Text key, Iterable<IntWritable> values,
 						   Context context
