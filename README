@@ -11,4 +11,7 @@ Rzutuje na pierwszy element krotki.
 wybiera tylko te krotki, których pierwszym elementem jest string "cc"
 Założyłem, że select ma być distinct
 
-4. 
+4. Złączenie naturalne
+Łączy B i A na podstawie A_1 i B_2
+
+

@@ -24,7 +24,11 @@ hdfs dfs -cat /user/mwos/result-difference/part*
 echo "PROJECTION (1st element): "
 hdfs dfs -cat /user/mwos/result-projection/part*
 
-hadoop jar target/map-reduce-1.0-SNAPSHOT.jar Select /user/mwos/sample-input /user/mwos/result-select/
+#hadoop jar target/map-reduce-1.0-SNAPSHOT.jar Select /user/mwos/sample-input /user/mwos/result-select/
 echo "SELECT (1st element == 'cc'): "
 hdfs dfs -cat /user/mwos/result-select/part*
+
+hadoop jar target/map-reduce-1.0-SNAPSHOT.jar Join /user/mwos/sample-input /user/mwos/result-join/
+echo "JOIN: "
+hdfs dfs -cat /user/mwos/result-join/part*
 
