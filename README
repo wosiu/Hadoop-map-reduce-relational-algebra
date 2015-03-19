@@ -3,3 +3,12 @@ Przyjęte założenia:
 1. Union, Intersection, Diff:
 W ścieżce z plikami wejściowymi znajdują sie dokładnie 2 pliki A i B, każdy z nich reprezentuje 1 zbiór.
 W szczególności Diff licz A \ B (nazwa pliku istotna).
+
+2. Projekcja
+Rzutuje na pierwszy element krotki.
+
+3. Selekcja
+wybiera tylko te krotki, których pierwszym elementem jest string "cc"
+Założyłem, że select ma być distinct
+
+4. 
