@@ -3,8 +3,6 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
-import org.apache.hadoop.mapreduce.Mapper;
-import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
@@ -12,8 +10,8 @@ import java.io.IOException;
 
 public class Intersection {
 
-	public static class TokenizerMapper
-			extends Mapper<Object, Text, Text, IntWritable>{
+	public static class Mapper
+			extends org.apache.hadoop.mapreduce.Mapper {
 
 		private final static IntWritable one = new IntWritable(1);
 		private Text word = new Text();
@@ -24,8 +22,8 @@ public class Intersection {
 		}
 	}
 
-	public static class IntSumCombiner
-			extends Reducer<Text,IntWritable,Text,IntWritable> {
+	public static class Combiner
+			extends org.apache.hadoop.mapreduce.Reducer {
 		private IntWritable result = new IntWritable();
 
 		public void reduce(Text key, Iterable<IntWritable> values,
@@ -40,8 +38,8 @@ public class Intersection {
 		}
 	}
 
-	public static class IntSumReducer
-			extends Reducer<Text,IntWritable,Text,Text> {
+	public static class Reducer
+			extends org.apache.hadoop.mapreduce.Reducer {
 
 		public void reduce(Text key, Iterable<IntWritable> values,
 						   Context context
@@ -61,9 +59,9 @@ public class Intersection {
 
 		Job job = Job.getInstance(conf, "word count");
 		job.setJarByClass(Intersection.class);
-		job.setMapperClass(TokenizerMapper.class);
-		job.setCombinerClass(IntSumCombiner.class);
-		job.setReducerClass(IntSumReducer.class);
+		job.setMapperClass(Mapper.class);
+		job.setCombinerClass(Combiner.class);
+		job.setReducerClass(Reducer.class);
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(IntWritable.class);
 		FileInputFormat.addInputPath(job, new Path(args[0]));

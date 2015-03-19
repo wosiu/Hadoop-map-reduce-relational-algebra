@@ -2,8 +2,6 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
-import org.apache.hadoop.mapreduce.Mapper;
-import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
@@ -11,9 +9,8 @@ import java.io.IOException;
 
 public class Difference {
 
-	private static Text emptyWord = new Text("");
-	public static class UnionMapper
-			extends Mapper<Object, Text, Text, Text> {
+	public static class Mapper
+			extends org.apache.hadoop.mapreduce.Mapper {
 
 		public void map(Object key, Text value, Context context
 		) throws IOException, InterruptedException {
@@ -22,8 +19,8 @@ public class Difference {
 		}
 	}
 
-	public static class UnionReducer
-			extends Reducer<Text, Text, Text, Text> {
+	public static class Reducer
+			extends org.apache.hadoop.mapreduce.Reducer {
 
 		public void reduce(Text key, Iterable<Text> values,
 						   Context context
@@ -45,9 +42,8 @@ public class Difference {
 
 		Job job = Job.getInstance(conf, "Word sum");
 		job.setJarByClass(Difference.class);
-		job.setMapperClass(UnionMapper.class);
-		//job.setCombinerClass(UnionReducer.class);
-		job.setReducerClass(UnionReducer.class);
+		job.setMapperClass(Mapper.class);
+		job.setReducerClass(Reducer.class);
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(Text.class);
 
