@@ -32,3 +32,7 @@ hadoop jar target/map-reduce-1.0-SNAPSHOT.jar Join /user/mwos/sample-input /user
 echo "JOIN: "
 hdfs dfs -cat /user/mwos/result-join/part*
 
+hadoop jar target/map-reduce-1.0-SNAPSHOT.jar GroupSum /user/mwos/result-join/part* /user/mwos/result-group/
+echo "GROUP & SUM: "
+hdfs dfs -cat /user/mwos/result-group/part*
+

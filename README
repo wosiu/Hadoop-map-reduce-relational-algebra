@@ -13,5 +13,10 @@ Założyłem, że select ma być distinct
 
 4. Złączenie naturalne
 Łączy B i A na podstawie A_1 i B_2
+Wynikiem jest krotka A_1 A_2 B_1
+gdzie A_1 = B_2
 
+5. grupowanie i agregacja
+Jako przykładowe wejście wziąłem wynik złączenia (bo są 3 elementy w krotce jak na slajdach..)
+Jako funkcję agregującą przyjąłem sumę.
 
